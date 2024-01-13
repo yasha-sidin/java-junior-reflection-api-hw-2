@@ -14,7 +14,7 @@ public class Program {
             System.out.println("Class name: " + animal.getClass().getSimpleName());
             System.out.println("Fields: ");
             Field[] fieldsSuper = animal.getClass().getSuperclass().getDeclaredFields();
-            Field[] fields = animal.getClass().getFields();
+            Field[] fields = animal.getClass().getDeclaredFields();
             for (Field field : fieldsSuper) {
                 field.setAccessible(true);
                 System.out.println(++index + ") " + field.getName() + " -> " + field.get(animal));
@@ -32,12 +32,12 @@ public class Program {
             Method makeSound = null;
             for (Method method : methodsSuper) {
                 if (!method.getName().equals("makeSound")) {
-                    System.out.println(++index + ") " + ((method.canAccess(animal)) ? "public " : "private ") + method.getName());
+                    System.out.println(++index + ") " + ((method.canAccess(animal)) ? "public -> " : "private -> ") + method.getName());
                 }
                 makeSound = method;
             }
             for (Method method : methods) {
-                    System.out.println(++index + ") " + ((method.canAccess(animal)) ? "public " : "private ") + method.getName());
+                    System.out.println(++index + ") " + ((method.canAccess(animal)) ? "public -> " : "private -> ") + method.getName());
             }
             if (makeSound != null) {
                 System.out.println("Execution of 'makeSound()' method:");
